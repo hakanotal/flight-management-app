@@ -1,9 +1,8 @@
 from classes import Flight, Pilot, Airport, Plane, Reservation
-import psycopg2
 import urllib.parse as urlparse
 import os
 
-url = urlparse.urlparse(os.getenv('DATABASE_URL'))
+'''url = urlparse.urlparse(os.getenv('DATABASE_URL'))'''
 
 
 class Database:
@@ -12,22 +11,8 @@ class Database:
         f2 = Flight(2, 2020, "AMH", "SGA", "Ahmet Uslu", "Boeing 737", 180, 75)
         self.flights = [f1, f2]
 
-        self.con = psycopg2.connect(
-            dbname=url.path[1:],
-            user=url.username,
-            password=url.password,
-            host=url.hostname,
-            port=url.port
-        )
-        self.cur = self.con.cursor()
-        self.cur.execute("CREATE TABLE test (num INT, name VARCHAR(50));")
-        self.cur.execute("INSERT INTO test (num, name) VALUES (%s, %s)",(100, "ali"))
 
     def get_flight(self, id):
-        self.cur.execute("SELECT * FROM test;")
-        self.cur.fetchone()
-        self.con.commit()
-
         for flight in self.flights:
             if flight.id == id:
                 return flight
