@@ -20,8 +20,13 @@ class Database:
             port=url.port
         )
         self.cur = self.con.cursor()
+        self.cur.execute("CREATE TABLE test (id serial PRIMARY KEY, num integer, data varchar);")
 
     def get_flight(self, id):
+        self.cur.execute("SELECT * FROM test;")
+        self.cur.fetchone()
+        self.con.commit()
+
         for flight in self.flights:
             if flight.id == id:
                 return flight
