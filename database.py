@@ -20,7 +20,8 @@ class Database:
             port=url.port
         )
         self.cur = self.con.cursor()
-        self.cur.execute("CREATE TABLE test (id serial PRIMARY KEY, num integer, data varchar);")
+        self.cur.execute("CREATE TABLE test (num integer);")
+        self.cur.execute("INSERT INTO test (num) VALUES (%s)",(100))
 
     def get_flight(self, id):
         self.cur.execute("SELECT * FROM test;")
