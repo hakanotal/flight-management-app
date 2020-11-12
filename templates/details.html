@@ -1,0 +1,45 @@
+{% extends "layout.html" %}
+{% block title %}Flight Details{% endblock %}
+{% block content %}
+    <h1 class="title has-text-link">Flight Details</h1>
+
+    <table class="table is-striped">
+      <tr>
+        <th>ID:</th>
+        <td>{{ flight.id }}</td>
+      </tr>
+      <tr>
+        <th>Date:</th>
+        <td>{{ flight.date }}</td>
+      </tr>
+      <tr>
+        <th>From:</th>
+        <td>{{ flight.from_airport }}</td>
+      </tr>
+      <tr>
+        <th>To:</th>
+        <td>{{ flight.to_airport }}</td>
+      </tr>
+      <tr>
+        <th>Pilot:</th>
+        <td>{{ flight.pilot }}</td>
+      </tr>
+      <tr>
+        <th>Plane:</th>
+        <td>{{ flight.plane_type }}</td>
+      </tr>
+      <tr>
+        <th>Capacity:</th>
+        <td>{{ flight.capacity }}</td>
+      </tr>
+      <tr>
+        <th>Passengers:</th>
+        <td>{{ flight.passengers }}</td>
+      </tr>
+    </table>
+
+    <a class="button is-danger">
+      <span class="icon"><i class="fas fa-arrow-circle-right"></i></span>
+      <span>Make Reservation</span>
+    </a>    
+{% endblock %}

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}{% endblock %}</title>
+  
+    <link rel="icon" type="image/png" href="{{url_for('static', filename='icon.png')}}"/>
+    <link rel="stylesheet" href="{{url_for('static', filename='main.css')}}"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+
+    <script defer src="https://use.fontawesome.com/releases/v5.14.0/js/all.js"></script>
+  </head>
+
+  <body class="has-background-light">
+    <header>
+      <nav class="navbar is-dark p-2" role="navigation">
+        <div class="navbar-brand">
+          <a class="navbar-item" href="/">
+            <span class="icon px-6"><i class="fas fa-plane fa-2x"></i></span>
+            <h1 class="title has-text-white">Flight Management System</h1>
+          </a>
+        </div>
+
+        <div class="navbar-end">
+          <div class="navbar-item">
+            <a class="button is-link" href="/flights">
+              <span class="icon"><i class="fas fa-plane"></i></span>
+              <span>All Flights</span>
+            </a>
+          </div>
+
+          <div class="navbar-item">
+            <a class="button is-link" href="/reservation">
+              <span class="icon"><i class="fas fa-calendar-check"></i></span>
+              <span>Make Reservation</span>
+            </a>
+          </div>
+
+          <div class="navbar-item">
+            <a class="button is-link" href="/panel">
+              <span class="icon"><i class="fas fa-lock"></i></span>
+              <span>Admin Panel</span>
+            </a>
+          </div>
+
+          <div class="navbar-item">
+            <a class="button is-danger" href="/logout">
+              <span class="icon"><i class="fas fa-sign-out-alt"></i></span>
+              <span>Logout</span>
+            </a>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <section class="section">
+        <div class="content">
+          <br>{% block content %}{% endblock %}<br>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer has-background-dark">
+      <div class="content has-text-centered has-text-light">
+        <small>&copy; 2020 <a href="https://linktr.ee/hakan.otal">Hakan Tugrul Otal</a></small>
+      </div>
+    </footer>
+  </body>
+</html>

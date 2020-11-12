@@ -1,0 +1,48 @@
+{% extends "layout.html" %}
+{% block title %} Flights {% endblock %}
+{% block content %} 
+    <h1 class="title has-text-link">All Flights</h1>
+
+    <div class="table-container">
+        <table class="table is-bordered is-striped is-narrow has-text-centered">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Date</th>
+                    <th>From</th>
+                    <th>To</th>
+                    <th>Passengers</th>
+                    <th>Details</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% if flights %}
+                {% for flight in flights %}
+                <tr>
+                    <td class="is-vcentered">{{ flight.id }}</td>
+                    <td class="is-vcentered">{{ flight.date }}</td>
+                    <td class="is-vcentered">{{ flight.from_airport }}</td>
+                    <td class="is-vcentered">{{ flight.to_airport }}</td>
+
+                    {% if flight.passengers < flight.capacity %}
+                    <td class="is-vcentered">
+                        <progress class="progress is-primary" value="{{ flight.passengers }}" max="{{ flight.capacity }}"></progress>
+                    </td>
+                    {% else %}
+                    <td class="is-vcentered">
+                        <progress class="progress is-danger" value="{{ flight.passengers }}" max="{{ flight.capacity }}">Full</progress>
+                    </td>
+                    {% endif %}
+
+                    <td class="is-vcentered">
+                        <a class="button is-link" href="/flights/{{ flight.id }}">
+                            <span class="icon"><i class="fas fa-arrow-circle-right"></i></span>
+                        </a>     
+                    </td>
+                </tr>
+                {% endfor %}
+            {% endif %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
