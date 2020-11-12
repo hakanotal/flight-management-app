@@ -3,7 +3,7 @@ import psycopg2
 import urllib.parse as urlparse
 import os
 
-url = urlparse.urlparse(os.getenv('DB_URL'))
+url = urlparse.urlparse(os.getenv('DATABASE_URL'))
 
 
 class Database:
