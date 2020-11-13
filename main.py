@@ -10,11 +10,17 @@ def create_app():
     app.config.from_object("settings")
     app.config["db"] = db
 
+    #Home page
     app.add_url_rule("/", view_func=views.home_page)
+
+    #User pages
     app.add_url_rule("/flights", view_func=views.flights_page)
     app.add_url_rule("/flights/<int:flight_id>", view_func=views.details_page)
     app.add_url_rule("/myreservations", view_func=views.user_reservations_page)
-    app.add_url_rule("/panel", view_func=views.panel_page)
+
+    #Admin pages
+    app.add_url_rule("/panel", view_func=views.panel_home_page)
+    app.add_url_rule("/panel/<menu>", view_func=views.panel_menu_page)
 
     return app
 

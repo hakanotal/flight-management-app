@@ -23,7 +23,7 @@
                     <td class="is-vcentered">{{ flight.date }}</td>
                     <td class="is-vcentered">{{ flight.from_airport }}</td>
                     <td class="is-vcentered">{{ flight.to_airport }}</td>
-
+    
                     {% if flight.passengers < flight.capacity %}
                     <td class="is-vcentered">
                         <progress class="progress is-primary" value="{{ flight.passengers }}" max="{{ flight.capacity }}"></progress>
@@ -33,7 +33,7 @@
                         <progress class="progress is-danger" value="{{ flight.passengers }}" max="{{ flight.capacity }}">Full</progress>
                     </td>
                     {% endif %}
-
+    
                     <td class="is-vcentered">
                         <a class="button is-link" href="/flights/{{ flight.id }}">
                             <span class="icon"><i class="fas fa-arrow-circle-right"></i></span>

@@ -1,0 +1,43 @@
+<div class="column is-3 has-background-white">
+    <aside class="menu is-medium">
+        <p class="menu-label">Admin Panel</p>
+        <ul class="menu-list">
+            <li><a href="/panel/flights" 
+                {% if menu == 'flights' %} 
+                    class="is-active" 
+                {% endif %}
+                >Flights</a>
+            </li>
+            <li><a href="/panel/pilots"
+                {% if menu == 'pilots' %} 
+                    class="is-active" 
+                {% endif %}
+                >Pilots</a>
+            </li>
+            <li><a href="/panel/planes"
+                {% if menu == 'planes' %} 
+                    class="is-active" 
+                {% endif %}
+                >Planes</a>
+            </li>
+            <li><a href="/panel/airports"
+                {% if menu == 'airports' %} 
+                    class="is-active" 
+                {% endif %}
+                >Airports</a>
+            </li>
+            <li><a href="/panel/reservations"
+                {% if menu == 'reservations' %} 
+                    class="is-active" 
+                {% endif %}
+                >Reservations</a>
+            </li>
+            <li><a href="/panel/users"
+                {% if menu == 'users' %} 
+                    class="is-active" 
+                {% endif %}
+                >Users</a>
+            </li>
+        </ul>    
+    </aside>
+</div>

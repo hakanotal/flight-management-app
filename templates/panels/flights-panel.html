@@ -1,0 +1,45 @@
+{% extends "layout.html" %}
+{% block title %} Admin Panel {% endblock %}
+{% block content %} 
+
+    <div class="columns">
+        {% with menu=menu %}
+            {% include 'panels/menu.html' ignore missing %}
+        {% endwith %}
+        <div class="column">
+            <div class="table-container">
+                <table class="table is-bordered is-striped is-narrow has-text-centered">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Date</th>
+                            <th>From</th>
+                            <th>To</th>
+                            <th>Pilot</th>
+                            <th>Details</th>
+                            <th>Capacity</th>
+                            <th>Passengers</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% if flights %}
+                        {% for flight in flights %}
+                        <tr>
+                            <td class="is-vcentered">{{ flight.id }}</td>
+                            <td class="is-vcentered">{{ flight.date }}</td>
+                            <td class="is-vcentered">{{ flight.from_airport }}</td>
+                            <td class="is-vcentered">{{ flight.to_airport }}</td>
+                            <td class="is-vcentered">{{ flight.pilot }}</td>
+                            <td class="is-vcentered">{{ flight.plane_type }}</td>
+                            <td class="is-vcentered">{{ flight.capacity }}</td>
+                            <td class="is-vcentered">{{ flight.passengers }}</td>
+                        </tr>
+                        {% endfor %}
+                    {% endif %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    
+{% endblock %}

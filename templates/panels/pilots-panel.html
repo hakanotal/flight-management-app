@@ -1,0 +1,35 @@
+{% extends "layout.html" %}
+{% block title %} Admin Panel {% endblock %}
+{% block content %} 
+
+    <div class="columns">
+        {% with menu=menu %}
+            {% include 'panels/menu.html' ignore missing %}
+        {% endwith %}
+        <div class="column">
+            <div class="table-container">
+                <table class="table is-bordered is-striped is-narrow has-text-centered">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Age</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% if pilots %}
+                        {% for pilot in pilots %}
+                        <tr>
+                            <td class="is-vcentered">{{ pilot.id }}</td>
+                            <td class="is-vcentered">{{ pilot.name }}</td>
+                            <td class="is-vcentered">{{ pilot.age }}</td>
+                        </tr>
+                        {% endfor %}
+                    {% endif %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    
+{% endblock %}

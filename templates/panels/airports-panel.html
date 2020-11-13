@@ -1,0 +1,37 @@
+{% extends "layout.html" %}
+{% block title %} Admin Panel {% endblock %}
+{% block content %} 
+
+    <div class="columns">
+        {% with menu=menu %}
+            {% include 'panels/menu.html' ignore missing %}
+        {% endwith %}
+        <div class="column">
+            <div class="table-container">
+                <table class="table is-bordered is-striped is-narrow has-text-centered">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>City</th>
+                            <th>Abbreviation</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% if airports %}
+                        {% for airport in airports %}
+                        <tr>
+                            <td class="is-vcentered">{{ airport.id }}</td>
+                            <td class="is-vcentered">{{ airport.name }}</td>
+                            <td class="is-vcentered">{{ airport.city }}</td>
+                            <td class="is-vcentered">{{ airport.abbr }}</td>
+                        </tr>
+                        {% endfor %}
+                    {% endif %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    
+{% endblock %}
