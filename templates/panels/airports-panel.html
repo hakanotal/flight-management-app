@@ -11,7 +11,6 @@
                 <table class="table is-bordered is-striped is-narrow has-text-centered">
                     <thead>
                         <tr>
-                            <th>ID</th>
                             <th>Name</th>
                             <th>City</th>
                             <th>Abbreviation</th>
@@ -21,7 +20,6 @@
                     {% if airports %}
                         {% for airport in airports %}
                         <tr>
-                            <td class="is-vcentered">{{ airport.id }}</td>
                             <td class="is-vcentered">{{ airport.name }}</td>
                             <td class="is-vcentered">{{ airport.city }}</td>
                             <td class="is-vcentered">{{ airport.abbr }}</td>
