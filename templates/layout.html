@@ -14,42 +14,78 @@
   <body class="has-background-light">
     <header>
       <nav class="navbar is-dark p-2" role="navigation">
-        <div class="navbar-brand">
-          <a class="navbar-item" href="/">
-            <span class="icon px-6"><i class="fas fa-plane fa-2x"></i></span>
-            <h1 class="title has-text-white">Flight Management System</h1>
-          </a>
-        </div>
-
-        <div class="navbar-end">
-          <div class="navbar-item">
-            <a class="button is-link" href="/flights">
-              <span class="icon"><i class="fas fa-plane"></i></span>
-              <span>All Flights</span>
+        {% if not current_user.is_authenticated %}
+          <div class="navbar-brand">
+            <a class="navbar-item" href="/">
+              <span class="icon px-6"><i class="fas fa-plane fa-2x"></i></span>
+              <h1 class="title has-text-white">Flight Management System</h1>
+            </a>
+          </div>
+        {% endif %}
+        
+        {% if current_user.is_authenticated and not current_user.is_admin %}
+          <div class="navbar-brand">
+            <a class="navbar-item" href="/flights">
+              <span class="icon px-6"><i class="fas fa-plane fa-2x"></i></span>
+              <h1 class="title has-text-white">Flight Management System</h1>
             </a>
           </div>
 
-          <div class="navbar-item">
-            <a class="button is-link" href="/reservation">
-              <span class="icon"><i class="fas fa-calendar-check"></i></span>
-              <span>Make Reservation</span>
+          <div class="navbar-end">
+            <div class="navbar-item">
+              <a class="button is-link" href="/flights">
+                <span class="icon"><i class="fas fa-plane"></i></span>
+                <span>Search Flights</span>
+              </a>
+            </div>
+
+            <div class="navbar-item">
+              <a class="button is-link" href="/reservation">
+                <span class="icon"><i class="fas fa-calendar-check"></i></span>
+                <span>My Reservations</span>
+              </a>
+            </div>
+
+            <div class="navbar-item">
+              <h3 class="title is-5 has-text-white">{{ current_user.name }}</h3>
+            </div>
+            <div class="navbar-item">
+              <form action="/logout" method="POST">
+                <div class="control">
+                  <button class="button is-danger">
+                    <span class="icon"><i class="fas fa-sign-out-alt"></i></span>
+                    <span>Logout</span>
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        {% endif %}
+
+        {% if current_user.is_authenticated and current_user.is_admin %}
+          <div class="navbar-brand">
+            <a class="navbar-item" href="/panel">
+              <span class="icon px-6"><i class="fas fa-plane fa-2x"></i></span>
+              <h1 class="title has-text-white">Flight Management System</h1>
             </a>
           </div>
 
-          <div class="navbar-item">
-            <a class="button is-link" href="/panel">
-              <span class="icon"><i class="fas fa-lock"></i></span>
-              <span>Admin Panel</span>
-            </a>
+          <div class="navbar-end">
+            <div class="navbar-item">
+              <h3 class="title is-5 has-text-white">{{ current_user.name }}</h3>
+            </div>
+            <div class="navbar-item">
+              <form action="/logout" method="POST">
+                <div class="control">
+                  <button class="button is-danger">
+                    <span class="icon"><i class="fas fa-sign-out-alt"></i></span>
+                    <span>Logout</span>
+                  </button>
+                </div>
+              </form>
+            </div>
           </div>
-
-          <div class="navbar-item">
-            <a class="button is-danger" href="/logout">
-              <span class="icon"><i class="fas fa-sign-out-alt"></i></span>
-              <span>Logout</span>
-            </a>
-          </div>
-        </div>
+        {% endif %}        
       </nav>
     </header>
 

@@ -1,36 +1,43 @@
-from flask import render_template, url_for, current_app, redirect
-from passlib.hash import pbkdf2_sha256 as hasher
+from flask import render_template, url_for, current_app, redirect, abort
+from flask_login import login_required, current_user
 
-#Home
+
+#Home Page
 def home_page():
-    '''
-    admin_name = os.getenv("ADMIN_NAME")
-    admin_pw = os.getenv("ADMIN_PASSWORD")
-    if hasher.verify(admin_name, admin_pw):
-        return redirect(url_for("panel_page"))
-    '''
     return render_template("home.html")
 
 
-#User
+#User Pages
+@login_required
 def flights_page():
     db = current_app.config["db"]
-    return render_template("flights.html", flights=db.flights)
+    return render_template("flights.html", flights=db.get_flights())
 
+@login_required
 def details_page(flight_id):
     db = current_app.config["db"]
     flight = db.get_flight(flight_id)
     return render_template("details.html", flight=flight)
 
+@login_required
 def user_reservations_page():
     return render_template("user_reservations.html")
 
 
-#Admin
+#Admin Pages
+@login_required
 def panel_home_page():
+    current_app.logger.info('DEBUG: %s', current_user.mail)
+    if current_user.is_admin is False:
+        abort(401)
+
     return render_template("panels/home-panel.html")
 
+@login_required
 def panel_menu_page(menu):
+    if current_user.is_admin is False:
+        abort(401)
+
     db = current_app.config["db"]
 
     if(menu == "flights"):

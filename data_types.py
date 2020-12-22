@@ -1,12 +1,11 @@
 class Flight:
-    def __init__(self, id, date, from_airport, to_airport, pilot, plane_type, capacity, passengers=0):
+    def __init__(self, id, date, pilot, from_airport, to_airport, plane_type, passengers=0):
         self.id = id
         self.date = date
         self.from_airport = from_airport
         self.to_airport = to_airport
         self.pilot = pilot
-        self.plane_type = plane_type
-        self.capacity = capacity
+        self.plane = plane_type
         self.passengers = passengers
 
 
@@ -18,8 +17,7 @@ class Pilot:
 
 
 class Airport:
-    def __init__(self, id, name, city, abbr):
-        self.id = id
+    def __init__(self, abbr, name, city):
         self.name = name
         self.city = city
         self.abbr = abbr
@@ -34,8 +32,8 @@ class Plane:
 
 
 class Reservation:
-    def __init__(self, id, name, mail, count):
+    def __init__(self, id, user, flight, count):
         self.id = id
-        self.name = name
-        self.mail = mail
+        self.user = user
+        self.flight = flight
         self.count = count

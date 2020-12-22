@@ -1,7 +1,52 @@
 {% extends "layout.html" %}
 {% block title %} Flights {% endblock %}
 {% block content %} 
-    <h1 class="title has-text-link">All Flights</h1>
+    <section class="hero">
+        <div class="hero-body">
+            <div class="container">
+                <h1 class="title has-text-link">Search Flights</h1>
+            </div>
+        </div>
+    </section>
+
+    <div class="field is-grouped is-grouped-centered">
+        <div class="control">
+            <label class="label" for="Date">Pick a date:</label>
+            <input class="input" type="date" id="Date" name="Date">
+        </div>
+
+        <div class="control">
+            <label class="label" for="From">From:</label>
+            <div class="select"> 
+                <select name="From" id="airports1">
+                    <option value="volvo">SAW</option>
+                    <option value="saab">IST</option>
+                    <option value="opel">---</option>
+                    <option value="audi">---</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="control">
+            <label class="label" for="To">To:</label>
+            <div class="select">
+                <select name="To" id="airports2">
+                    <option value="volvo">SAW</option>
+                    <option value="saab">IST</option>
+                    <option value="opel">---</option>
+                    <option value="audi">---</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="control">
+            <br>
+            <button class="button is-info">
+                <span class="icon"><i class="fas fa-filter"></i></span>
+                <span>Filter</span>
+            </button>
+        </div>   
+    </div>
 
     <div class="table-container">
         <table class="table is-bordered is-striped is-narrow has-text-centered">

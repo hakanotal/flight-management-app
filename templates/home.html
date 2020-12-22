@@ -1,83 +1,89 @@
 {% extends "layout.html" %}
 {% block title %} Home {% endblock %}
-{% block content %} 
-    <div class="container has-text-centered">
-        <h1 class="title">Welcome!</h1><br>
+{% block content %}
+<div class="container has-text-centered">
+  <div class="hero">
+    <div class="hero-body">
+      <div class="container">
+        <h1 class="title has-text-link">Welcome!</h1><br>
         <p class="subtitle">You must login or sign up to monitor flights.</p><br>
-
-        <div class="columns is-centered">
-            <div class="column is-5-tablet is-4-desktop is-3-widescreen">
-                <form action="" class="box">
-                    <h3 class="title has-text-link has-text-weight-bold">Sign In</h3>
-                    <hr>
-                    <div class="field">
-                        <label for="" class="label">Email</label>
-                        <div class="control has-icons-left">
-                            <span class="icon is-small is-left">
-                                <i class="fa fa-envelope"></i>
-                            </span>
-                            <input type="email" placeholder="example@example.com" class="input" required>   
-                        </div>
-                    </div>
-                    <div class="field">
-                        <label for="" class="label">Password</label>
-                        <div class="control has-icons-left">
-                            <span class="icon is-small is-left">
-                                <i class="fa fa-lock"></i>
-                            </span>
-                            <input type="password" placeholder="*******" class="input" required>
-                        </div>
-                    </div>
-                    <br>
-                    <div class="field">
-                        <a class="button is-link">
-                            <span class="icon"><i class="fas fa-arrow-circle-right"></i></span>
-                            <span>Login</span>
-                        </a>
-                    </div>
-                </form>
-            </div>
-
-            <div class="column is-5-tablet is-4-desktop is-3-widescreen">
-                <form action="" class="box">
-                    <h3 class="title has-text-success has-text-weight-bold">Sign Up</h3>
-                    <hr>
-                    <div class="field">
-                        <label for="" class="label">Name</label>
-                        <div class="control has-icons-left">
-                            <span class="icon is-small is-left">
-                                <i class="fa fa-user"></i>
-                            </span>
-                            <input type="text" placeholder="Name" class="input" required>   
-                        </div>
-                    </div>
-                    <div class="field">
-                        <label for="" class="label">Email</label>
-                        <div class="control has-icons-left">
-                            <span class="icon is-small is-left">
-                                <i class="fa fa-envelope"></i>
-                            </span>
-                            <input type="email" placeholder="example@example.com" class="input" required>   
-                        </div>
-                    </div>
-                    <div class="field">
-                        <label for="" class="label">Password</label>
-                        <div class="control has-icons-left">
-                            <span class="icon is-small is-left">
-                                <i class="fa fa-lock"></i>
-                            </span>
-                            <input type="password" placeholder="*******" class="input" required>
-                        </div>
-                    </div>
-                    <br>
-                    <div class="field">
-                        <a class="button is-success">
-                            <span class="icon"><i class="fas fa-arrow-circle-right"></i></span>
-                            <span>Create Account</span>
-                        </a>
-                    </div>
-                </form>
-            </div>
-        </div>
+      </div>
     </div>
+  </div>
+
+  <div class="columns is-centered">
+    <div class="column is-5-tablet is-4-desktop is-3-widescreen">
+      <form action="/login" method="POST" class="box">
+        <h3 class="title has-text-link has-text-weight-bold">Sign In</h3>
+        <hr>
+        <div class="field">
+          <label for="email" class="label">Email</label>
+          <div class="control has-icons-left">
+            <span class="icon is-small is-left">
+              <i class="fa fa-envelope"></i>
+            </span>
+            <input type="email" placeholder="example@example.com" class="input" name="email" maxlength="30" required>
+          </div>
+        </div>
+        <div class="field">
+          <label for="password" class="label">Password</label>
+          <div class="control has-icons-left">
+            <span class="icon is-small is-left">
+              <i class="fa fa-lock"></i>
+            </span>
+            <input type="password" placeholder="*******" class="input" name="password" maxlength="30" required>
+          </div>
+        </div>
+        <br>
+        <div class="control">
+          <button class="button is-link">
+            <span class="icon"><i class="fas fa-arrow-circle-right"></i></span>
+            <span>Login</span>
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <div class="column is-5-tablet is-4-desktop is-3-widescreen">
+      <form action="/signup" method="POST" class="box">
+        <h3 class="title has-text-success has-text-weight-bold">Sign Up</h3>
+        <hr>
+        <div class="field">
+          <label for="" class="label">Name</label>
+          <div class="control has-icons-left">
+            <span class="icon is-small is-left">
+              <i class="fa fa-user"></i>
+            </span>
+            <input type="text" placeholder="Name" class="input" name="name" maxlength="30" required>
+          </div>
+        </div>
+        <div class="field">
+          <label for="" class="label">Email</label>
+          <div class="control has-icons-left">
+            <span class="icon is-small is-left">
+              <i class="fa fa-envelope"></i>
+            </span>
+            <input type="email" placeholder="example@example.com" class="input" name="email" maxlength="30" required>
+          </div>
+        </div>
+        <div class="field">
+          <label for="" class="label">Password</label>
+          <div class="control has-icons-left">
+            <span class="icon is-small is-left">
+              <i class="fa fa-lock"></i>
+            </span>
+            <input type="password" placeholder="*******" class="input" name="password" maxlength="30" required>
+          </div>
+        </div>
+        <br>
+        <div class="control">
+          <button class="button is-success">
+            <span class="icon"><i class="fas fa-arrow-circle-right"></i></span>
+            <span>Create Account</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
 {% endblock %}

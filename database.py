@@ -1,40 +1,98 @@
-from classes import Flight, Pilot, Airport, Plane, Reservation
-import urllib.parse as urlparse
-import os
-
-# url = urlparse.urlparse(os.getenv('DATABASE_URL'))
+from data_types import Flight, Pilot, Airport, Plane, Reservation
+from flask import current_app
+from account import User
+import psycopg2
 
 
 class Database:
     def __init__(self):
-        f1 = Flight(1, 2020, "SGA", "AMH", "Sabiha Gökçen", "Boeing 727", 160, 160)
-        f2 = Flight(2, 2020, "AMH", "SGA", "Ahmet Uslu", "Boeing 737", 180, 75)
-        self.flights = [f1, f2]
-        p1 = Pilot(1, "Sabiha Gökçen", 30)
-        p2 = Pilot(2, "Ahmet Uslu", 26)
-        self.pilots = [p1, p2]
+        # Connect to your postgres DB
+        self.conn = psycopg2.connect(
+            host = 'ec2-54-217-236-206.eu-west-1.compute.amazonaws.com',
+            database = 'df318pdncl0ave',
+            user = 'cuorkiryfslzay',
+            password = 'c09f7fbd08121fa82131d015a5fbd4e3b0e470a2e8f35afdcae5e93200a4bb29'
+        )
+        self.conn.commit()
 
 
     def get_flights(self):
-        return self.flights
+        flights = []
+        cur = self.conn.cursor()
+        cur.execute("SELECT * FROM flights")
+        rows = cur.fetchall()
+        cur.close()
+        for r in rows:
+            flights.append(Flight(r[0], r[1], r[2], r[3], r[4], r[5], r[6]))
+        return flights
 
     def get_flight(self, id):
-        for flight in self.flights:
+        for flight in self.get_flights:
             if flight.id == id:
                 return flight
 
 
     def get_pilots(self):
-        return self.pilots
+        pilots = []
+        cur = self.conn.cursor()
+        cur.execute("SELECT * FROM pilots")
+        rows = cur.fetchall()
+        cur.close()
+        for r in rows:
+            pilots.append(Pilot(r[0], r[1], r[2]))
+        return pilots
 
     def get_planes(self):
-        return 
+        planes = []
+        cur = self.conn.cursor()
+        cur.execute("SELECT * FROM planes")
+        rows = cur.fetchall()
+        cur.close()
+        for r in rows:
+            planes.append(Plane(r[0], r[1], r[2], r[3]))
+        return planes
 
     def get_airports(self):
-        return 
+        airports = []
+        cur = self.conn.cursor()
+        cur.execute("SELECT * FROM airports")
+        rows = cur.fetchall()
+        cur.close()
+        for r in rows:
+            airports.append(Airport(r[0], r[1], r[2]))
+        return airports
 
     def get_reservations(self):
-        return 
+        reservations = []
+        cur = self.conn.cursor()
+        cur.execute("SELECT * FROM reservations")
+        rows = cur.fetchall()
+        cur.close()
+        for r in rows:
+            reservations.append(Reservation(r[0], r[1], r[2], r[3]))
+        return reservations
 
+
+    def add_user(self, mail, name, password): 
+        cur = self.conn.cursor()
+        cur.execute("INSERT INTO accounts(mail, name, password) VALUES (%s, %s, %s)", (mail, name, password)) 
+        cur.close()
+        self.conn.commit()
+        
+
+    def check_user(self, mail, password):
+        cur = self.conn.cursor()
+        cur.execute("SELECT * FROM accounts WHERE mail = %s AND password = %s", (mail, password))
+        r = cur.fetchone()
+        cur.close()
+        return User(r[0], r[1], r[2], r[3])
+        
     def get_users(self):
-        return 
+        users = []
+        cur = self.conn.cursor()
+        cur.execute("SELECT * FROM accounts")
+        rows = cur.fetchall()
+        cur.close()
+        for r in rows:
+            users.append(User(r[0], r[1], r[2], r[3]))
+        return users
