@@ -25,7 +25,8 @@ class Database:
         for r in rows:
             pilot = self.get_pilot_name(r[2])
             plane = self.get_plane_name(r[5])
-            flights.append(Flight(r[0], r[1], pilot, r[3], r[4], plane, r[6]))
+            cap = self.get_plane_cap(r[5])
+            flights.append(Flight(r[0], r[1], pilot, r[3], r[4], plane, cap, r[6]))
         return flights
 
     def get_flight(self, id):
@@ -50,13 +51,19 @@ class Database:
             pilots.append(Pilot(r[0], r[1], r[2]))
         return pilots
 
+    def get_plane_cap(self, id):
+        cur = self.conn.cursor()
+        cur.execute("SELECT * FROM planes WHERE plane_id = %s", (id,))
+        r = cur.fetchone()
+        cur.close()
+        return r[3]
 
     def get_plane_name(self, id):
         cur = self.conn.cursor()
         cur.execute("SELECT * FROM planes WHERE plane_id = %s", (id,))
         r = cur.fetchone()
         cur.close()
-        return r[1].join(r[2])
+        return r[1]
 
     def get_planes(self):
         planes = []
