@@ -29,11 +29,9 @@ class Database:
         return flights
 
     def get_flight(self, id):
-        cur = self.conn.cursor()
-        cur.execute("SELECT * FROM flights WHERE flight_id = %s", (id,))
-        r = cur.fetchone()
-        cur.close()
-        return r
+        for flight in self.get_flights():
+            if flight.id == id:
+                return flight
 
     def get_pilot(self, id):
         cur = self.conn.cursor()
