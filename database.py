@@ -35,7 +35,7 @@ class Database:
 
     def get_pilot_name(self, id):
         cur = self.conn.cursor()
-        cur.execute("SELECT * FROM pilots WHERE pilot_id = %s", id)
+        cur.execute("SELECT * FROM pilots WHERE pilot_id = %s", (id,))
         r = cur.fetchone()
         cur.close()
         return r[1]
@@ -53,7 +53,7 @@ class Database:
 
     def get_plane_name(self, id):
         cur = self.conn.cursor()
-        cur.execute("SELECT * FROM planes WHERE plane_id = %s", id)
+        cur.execute("SELECT * FROM planes WHERE plane_id = %s", (id,))
         r = cur.fetchone()
         cur.close()
         return r[1].join(r[2])
