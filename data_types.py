@@ -5,7 +5,7 @@ class Flight:
         self.from_airport = from_airport
         self.to_airport = to_airport
         self.pilot = pilot
-        self.plane = plane_type
+        self.plane_type = plane_type
         self.capacity = capacity
         self.passengers = passengers
 
