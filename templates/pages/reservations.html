@@ -1,0 +1,50 @@
+{% extends "layout.html" %}
+{% block title %} My Reservations {% endblock %}
+{% block content %} 
+    <section class="hero">
+        <div class="hero-body">
+            <div class="container">
+                <h1 class="title has-text-link">My Reservations</h1>
+            </div>
+        </div>
+    </section>
+
+    <div class="table-container">
+        <table class="table is-bordered is-striped is-narrow has-text-centered">
+            <thead>
+                <tr>
+                    <th>Count</th>
+                    <th>Date</th>
+                    <th>From</th>
+                    <th>To</th>
+                    <th>Details</th>
+                    <th>Cancel</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% if reservations %}
+                {% for reservation in reservations %}
+                <tr>
+                    <td class="is-vcentered">{{ reservation.count }}</td>
+                    <td class="is-vcentered">{{ reservation.flight.date }}</td>
+                    <td class="is-vcentered">{{ reservation.flight.from_airport }}</td>
+                    <td class="is-vcentered">{{ reservation.flight.to_airport }}</td>
+                    <td class="is-vcentered">
+                        <a class="button is-link" href="/flights/{{ reservation.flight.id }}" type="submit">
+                            <span class="icon"><i class="fas fa-arrow-circle-right"></i></span>
+                        </a>     
+                    </td>
+                    <td class="is-vcentered">
+                        <form action="/delete_reservation/{{ reservation.id }}" method="POST">
+                            <button class="button is-danger">
+                                <span class="icon"><i class="fas fa-times-circle"></i></span>
+                            </button>
+                        </form>  
+                    </td>
+                </tr>
+                {% endfor %}
+            {% endif %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

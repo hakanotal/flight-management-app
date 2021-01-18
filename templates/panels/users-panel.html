@@ -1,0 +1,68 @@
+{% extends "layout.html" %}
+{% block title %} Admin Panel {% endblock %}
+{% block content %} 
+
+    <div class="columns">
+        {% with menu=menu %}
+            {% include 'panels/menu.html' ignore missing %}
+        {% endwith %}
+        <div class="column">
+            <form action="/add_user" method="POST">
+                <div class="columns">
+                    <div class="column"><input class="input" placeholder="MAIL" type="text" name="mail" required/></div>
+                    <div class="column"><input class="input" placeholder="NAME" type="text" name="name" required/></div>
+                    <div class="column"><input class="input" placeholder="PASSWORD" type="text" name="password" required/></div>
+                    <div class="column"><input class="input is-uppercase" placeholder="ADMIN RIGHTS" type="text" name="admin" required/></div>
+                    <div class="column">
+                        <button class="button is-success">
+                            <span class="icon"><i class="fas fa-arrow-circle-right"></i></span>
+                            <span>ADD</span>
+                        </button>
+                    </div>
+                </div>
+            </form> 
+
+            <hr>
+
+            <div class="table-container">
+                <table class="table is-bordered is-striped is-narrow has-text-centered">
+                    <thead>
+                        <tr>
+                            <th>Mail</th>
+                            <th>Name</th>
+                            <th>Password</th>
+                            <th>Admin Rights</th>
+                            <th>Delete</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% if users %}
+                        {% for user in users %}
+                        <tr>
+                            <td class="is-vcentered">{{ user.mail }}</td>
+                            <td class="is-vcentered">{{ user.name }}</td>
+                            <td class="is-vcentered">{{ user.password }}</td>
+                            <td class="is-vcentered">
+                                {% if user.is_admin == True %}
+                                True
+                                {% else %}
+                                False
+                                {% endif %}
+                            </td>
+                            <td class="is-vcentered is-narrow">
+                                <form action="/delete_user/{{ user.id }}" method="POST">
+                                    <button class="button is-danger">
+                                        <span class="icon"><i class="fas fa-times-circle"></i></span>
+                                    </button>
+                                </form>  
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    {% endif %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    
+{% endblock %}

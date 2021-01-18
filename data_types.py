@@ -1,3 +1,18 @@
+from flask_login import UserMixin
+from passlib.hash import pbkdf2_sha256 as hasher
+
+class User(UserMixin):
+    def __init__(self, mail, name, password, admin=False):
+        self.id = mail
+        self.name = name
+        self.mail = mail
+        self.password = hasher.hash(password)
+        self.is_admin = admin
+
+    def get_id(self):
+        return self.mail
+        
+
 class Flight:
     def __init__(self, id, date, pilot, from_airport, to_airport, plane_type, capacity, passengers=0):
         self.id = id
@@ -33,7 +48,7 @@ class Plane:
 
 
 class Reservation:
-    def __init__(self, id, user, flight, count):
+    def __init__(self, id, count, user, flight):
         self.id = id
         self.user = user
         self.flight = flight

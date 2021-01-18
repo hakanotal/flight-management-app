@@ -7,6 +7,24 @@
             {% include 'panels/menu.html' ignore missing %}
         {% endwith %}
         <div class="column">
+            <form action="/add_flight" method="POST">
+                <div class="columns">
+                    <div class="column"><input class="input" type="date" name="date" required/></div>
+                    <div class="column"><input class="input is-uppercase" placeholder="FROM ABB." type="text" name="from" required/></div>
+                    <div class="column"><input class="input is-uppercase" placeholder="TO ABB." type="text" name="to" required/></div>
+                    <div class="column"><input class="input" placeholder="PILOT ID" type="text" name="pilot" required/></div>
+                    <div class="column"><input class="input" placeholder="PLANE ID" type="text" name="plane" required/></div>
+                    <div class="column">
+                        <button class="button is-success">
+                            <span class="icon"><i class="fas fa-arrow-circle-right"></i></span>
+                            <span>ADD</span>
+                        </button>
+                    </div>
+                </div>
+            </form> 
+
+            <hr>
+
             <div class="table-container">
                 <table class="table is-bordered is-striped is-narrow has-text-centered">
                     <thead>
@@ -19,13 +37,14 @@
                             <th>Plane</th>
                             <th>Capacity</th>
                             <th>Passengers</th>
+                            <th>Delete</th>
                         </tr>
                     </thead>
                     <tbody>
                     {% if flights %}
                         {% for flight in flights %}
                         <tr>
-                            <td class="is-vcentered">{{ flight.id }}</td>
+                            <td class="is-vcentered is-narrow">{{ flight.id }}</td>
                             <td class="is-vcentered">{{ flight.date }}</td>
                             <td class="is-vcentered">{{ flight.from_airport }}</td>
                             <td class="is-vcentered">{{ flight.to_airport }}</td>
@@ -33,6 +52,13 @@
                             <td class="is-vcentered">{{ flight.plane_type }}</td>
                             <td class="is-vcentered">{{ flight.capacity }}</td>
                             <td class="is-vcentered">{{ flight.passengers }}</td>
+                            <td class="is-vcentered is-narrow">
+                                <form action="/delete_flight/{{ flight.id }}" method="POST">
+                                    <button class="button is-danger">
+                                        <span class="icon"><i class="fas fa-times-circle"></i></span>
+                                    </button>
+                                </form>  
+                            </td>
                         </tr>
                         {% endfor %}
                     {% endif %}

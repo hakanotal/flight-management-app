@@ -9,45 +9,52 @@
         </div>
     </section>
 
-    <div class="field is-grouped is-grouped-centered">
-        <div class="control">
-            <label class="label" for="Date">Pick a date:</label>
-            <input class="input" type="date" id="Date" name="Date">
-        </div>
-
-        <div class="control">
-            <label class="label" for="From">From:</label>
-            <div class="select"> 
-                <select name="From" id="airports1">
-                    <option value="volvo">SAW</option>
-                    <option value="saab">IST</option>
-                    <option value="opel">---</option>
-                    <option value="audi">---</option>
-                </select>
+    <form action="/search_flights" method="POST">   
+        <div class="field is-grouped is-grouped-centered">
+            <div class="control">
+                <label class="label" for="Date">Pick a date:</label>
+                <input class="input" type="date" name="date">
             </div>
-        </div>
 
-        <div class="control">
-            <label class="label" for="To">To:</label>
-            <div class="select">
-                <select name="To" id="airports2">
-                    <option value="volvo">SAW</option>
-                    <option value="saab">IST</option>
-                    <option value="opel">---</option>
-                    <option value="audi">---</option>
-                </select>
+            <div class="control">
+                <label class="label" for="From">From:</label>
+                <div class="select"> 
+                    <select name="from">
+                        {% if airports %}
+                            {% for airport in airports %}
+                            <option value="{{ airport.abbr }}">{{ airport.abbr }}</option>
+                            {% endfor %}
+                        {% endif %}
+                    </select>
+                </div>
             </div>
+
+            <div class="control">
+                <label class="label" for="To">To:</label>
+                <div class="select">
+                    <select name="to">
+                        {% if airports %}
+                            {% for airport in airports %}
+                            <option value="{{ airport.abbr }}">{{ airport.abbr }}</option>
+                            {% endfor %}
+                        {% endif %}
+                    </select>
+                </div>
+            </div>
+
+            <div class="control">
+                <br>
+                <button class="button is-info">
+                    <span class="icon"><i class="fas fa-filter"></i></span>
+                    <span>Filter</span>
+                </button>
+            </div> 
         </div>
+    </form> 
 
-        <div class="control">
-            <br>
-            <button class="button is-info">
-                <span class="icon"><i class="fas fa-filter"></i></span>
-                <span>Filter</span>
-            </button>
-        </div>   
-    </div>
+    <hr>
 
+    {% if flights %}
     <div class="table-container">
         <table class="table is-bordered is-striped is-narrow has-text-centered">
             <thead>
@@ -60,8 +67,8 @@
                     <th>Details</th>
                 </tr>
             </thead>
+            
             <tbody>
-            {% if flights %}
                 {% for flight in flights %}
                 <tr>
                     <td class="is-vcentered">{{ flight.id }}</td>
@@ -86,8 +93,21 @@
                     </td>
                 </tr>
                 {% endfor %}
-            {% endif %}
             </tbody>
         </table>
     </div>
+
+    {% else %}
+    <section class="section">
+        <div class="container">
+            <div class="columns is-centered">
+                <div class="column is-narrow">
+                    <h1 class="title has-text-danger">No Result <i class="far fa-frown"></i></h1>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    {% endif %}
 {% endblock %}

@@ -7,24 +7,48 @@
             {% include 'panels/menu.html' ignore missing %}
         {% endwith %}
         <div class="column">
+            <form action="/add_reservation" method="POST">
+                <div class="columns">
+                    <div class="column"><input class="input" placeholder="USER MAIL" type="text" name="user" required/></div>
+                    <div class="column"><input class="input" placeholder="FLIGHT ID" type="number" name="flight" required/></div>
+                    <div class="column"><input class="input" placeholder="COUNT" type="number" name="count" required/></div>
+                    <div class="column">
+                        <button class="button is-success">
+                            <span class="icon"><i class="fas fa-arrow-circle-right"></i></span>
+                            <span>ADD</span>
+                        </button>
+                    </div>
+                </div>
+            </form> 
+            
+            <hr>
+
             <div class="table-container">
                 <table class="table is-bordered is-striped is-narrow has-text-centered">
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Name</th>
-                            <th>Mail</th>
+                            <th>User Mail</th>
+                            <th>Flight ID</th>
                             <th>Count</th>
+                            <th>Delete</th>
                         </tr>
                     </thead>
                     <tbody>
                     {% if reservations %}
                         {% for reservation in reservations %}
                         <tr>
-                            <td class="is-vcentered">{{ reservation.id }}</td>
-                            <td class="is-vcentered">{{ reservation.name }}</td>
-                            <td class="is-vcentered">{{ reservation.mail }}</td>
+                            <td class="is-vcentered is-narrow">{{ reservation.id }}</td>
+                            <td class="is-vcentered">{{ reservation.user }}</td>
+                            <td class="is-vcentered">{{ reservation.flight }}</td>
                             <td class="is-vcentered">{{ reservation.count }}</td>
+                            <td class="is-vcentered is-narrow">
+                                <form action="/delete_reservation/{{ reservation.id }}" method="POST">
+                                    <button class="button is-danger">
+                                        <span class="icon"><i class="fas fa-times-circle"></i></span>
+                                    </button>
+                                </form>  
+                            </td>
                         </tr>
                         {% endfor %}
                     {% endif %}

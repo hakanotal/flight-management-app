@@ -7,6 +7,22 @@
             {% include 'panels/menu.html' ignore missing %}
         {% endwith %}
         <div class="column">
+            <form action="/add_plane" method="POST">
+                <div class="columns">
+                    <div class="column"><input class="input is-uppercase" placeholder="NAME" type="text" name="name" required/></div>
+                    <div class="column"><input class="input is-uppercase" placeholder="BRAND" type="text" name="brand" required/></div>
+                    <div class="column"><input class="input" placeholder="CAPACITY" type="number" name="cap" required/></div>
+                    <div class="column">
+                        <button class="button is-success">
+                            <span class="icon"><i class="fas fa-arrow-circle-right"></i></span>
+                            <span>ADD</span>
+                        </button>
+                    </div>
+                </div>
+            </form> 
+            
+            <hr>
+
             <div class="table-container">
                 <table class="table is-bordered is-striped is-narrow has-text-centered">
                     <thead>
@@ -15,16 +31,24 @@
                             <th>Name</th>
                             <th>Brand</th>
                             <th>Capacity</th>
+                            <th>Delete</th>
                         </tr>
                     </thead>
                     <tbody>
                     {% if planes %}
                         {% for plane in planes %}
                         <tr>
-                            <td class="is-vcentered">{{ plane.id }}</td>
+                            <td class="is-vcentered is-narrow">{{ plane.id }}</td>
                             <td class="is-vcentered">{{ plane.name }}</td>
                             <td class="is-vcentered">{{ plane.brand }}</td>
                             <td class="is-vcentered">{{ plane.capacity }}</td>
+                            <td class="is-vcentered is-narrow">
+                                <form action="/delete_plane/{{ plane.id }}" method="POST">
+                                    <button class="button is-danger">
+                                        <span class="icon"><i class="fas fa-times-circle"></i></span>
+                                    </button>
+                                </form>  
+                            </td>
                         </tr>
                         {% endfor %}
                     {% endif %}

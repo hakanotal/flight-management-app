@@ -7,6 +7,21 @@
             {% include 'panels/menu.html' ignore missing %}
         {% endwith %}
         <div class="column">
+            <form action="/add_pilot" method="POST">
+                <div class="columns">
+                    <div class="column"><input class="input" placeholder="NAME" type="text" name="name" required/></div>
+                    <div class="column"><input class="input" placeholder="AGE" type="number" name="age" required/></div>
+                    <div class="column">
+                        <button class="button is-success">
+                            <span class="icon"><i class="fas fa-arrow-circle-right"></i></span>
+                            <span>ADD</span>
+                        </button>
+                    </div>
+                </div>
+            </form> 
+            
+            <hr>
+
             <div class="table-container">
                 <table class="table is-bordered is-striped is-narrow has-text-centered">
                     <thead>
@@ -14,15 +29,23 @@
                             <th>ID</th>
                             <th>Name</th>
                             <th>Age</th>
+                            <th>Delete</th>
                         </tr>
                     </thead>
                     <tbody>
                     {% if pilots %}
                         {% for pilot in pilots %}
                         <tr>
-                            <td class="is-vcentered">{{ pilot.id }}</td>
+                            <td class="is-vcentered is-narrow">{{ pilot.id }}</td>
                             <td class="is-vcentered">{{ pilot.name }}</td>
                             <td class="is-vcentered">{{ pilot.age }}</td>
+                            <td class="is-vcentered is-narrow">
+                                <form action="/delete_pilot/{{ pilot.id }}" method="POST">
+                                    <button class="button is-danger">
+                                        <span class="icon"><i class="fas fa-times-circle"></i></span>
+                                    </button>
+                                </form>  
+                            </td>
                         </tr>
                         {% endfor %}
                     {% endif %}

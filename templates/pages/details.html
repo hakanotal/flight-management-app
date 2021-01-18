@@ -44,8 +44,20 @@
       </tr>
     </table>
 
-    <a class="button is-danger">
-      <span class="icon"><i class="fas fa-arrow-circle-right"></i></span>
-      <span>Make Reservation</span>
-    </a>    
+    <hr>
+
+    <form action="/new_reservation/{{ flight.id }}" method="POST">
+      <div class="columns">
+        <div class="column is-1">
+          <input class="input" placeholder="Quantity" type="number" name="count" required/>
+        </div>
+        <div class="column control is-2">
+          <button class="button is-danger">
+            <span class="icon"><i class="fas fa-arrow-circle-right"></i></span>
+            <span>Make Reservation</span>
+          </button>
+        </div>
+      </div>
+    </form>
+       
 {% endblock %}

@@ -1,33 +1,37 @@
 from flask import render_template, url_for, current_app, redirect, abort
-from flask_login import login_required, current_user
+from flask_login import login_required, current_user, logout_user
 
 
 #Home Page
 def home_page():
-    return render_template("home.html")
+    if current_user:
+        logout_user()
+    return render_template("pages/home.html")
 
 
 #User Pages
 @login_required
 def flights_page():
     db = current_app.config["db"]
-    return render_template("flights.html", flights=db.get_flights())
+    return render_template("pages/flights.html", flights=db.get_flights(), airports=db.get_airports())
 
 @login_required
 def details_page(flight_id):
     db = current_app.config["db"]
     flight = db.get_flight(flight_id)
-    return render_template("details.html", flight=flight)
+    return render_template("pages/details.html", flight=flight)
 
 @login_required
-def user_reservations_page():
-    return render_template("user_reservations.html")
+def reservations_page():
+    db = current_app.config["db"]
+    reservations = db.get_reservations_of_user(current_user.id)
+    return render_template("pages/reservations.html", reservations=reservations)
 
 
 #Admin Pages
 @login_required
 def panel_home_page():
-    current_app.logger.info('DEBUG: %s', current_user.mail)
+    current_app.logger.info('DEBUG: %s', current_user.id)
     if current_user.is_admin is False:
         abort(401)
 

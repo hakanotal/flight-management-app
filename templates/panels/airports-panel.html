@@ -7,22 +7,46 @@
             {% include 'panels/menu.html' ignore missing %}
         {% endwith %}
         <div class="column">
+            <form action="/add_airport" method="POST">
+                <div class="columns">
+                    <div class="column"><input class="input is-uppercase" placeholder="ABBREVIATION" type="text" name="abb" required/></div>
+                    <div class="column"><input class="input is-uppercase" placeholder="NAME" type="text" name="name" required/></div>
+                    <div class="column"><input class="input is-uppercase" placeholder="CITY" type="text" name="city" required/></div>
+                    <div class="column">
+                        <button class="button is-success">
+                            <span class="icon"><i class="fas fa-arrow-circle-right"></i></span>
+                            <span>ADD</span>
+                        </button>
+                    </div>
+                </div>
+            </form> 
+            
+            <hr>
+
             <div class="table-container">
                 <table class="table is-bordered is-striped is-narrow has-text-centered">
                     <thead>
                         <tr>
+                            <th>Abbreviation</th>
                             <th>Name</th>
                             <th>City</th>
-                            <th>Abbreviation</th>
+                            <th>Delete</th>
                         </tr>
                     </thead>
                     <tbody>
                     {% if airports %}
                         {% for airport in airports %}
                         <tr>
+                            <td class="is-vcentered is-narrow">{{ airport.abbr }}</td>
                             <td class="is-vcentered">{{ airport.name }}</td>
                             <td class="is-vcentered">{{ airport.city }}</td>
-                            <td class="is-vcentered">{{ airport.abbr }}</td>
+                            <td class="is-vcentered is-narrow">
+                                <form action="/delete_airport/{{ airport.abbr }}" method="POST">
+                                    <button class="button is-danger">
+                                        <span class="icon"><i class="fas fa-times-circle"></i></span>
+                                    </button>
+                                </form>  
+                            </td>
                         </tr>
                         {% endfor %}
                     {% endif %}
