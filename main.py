@@ -29,7 +29,10 @@ def create_app():
 
     app.add_url_rule("/flights", view_func=views.flights_page)
     app.add_url_rule("/flights/<int:flight_id>", view_func=views.details_page)
+
     app.add_url_rule("/reservations", view_func=views.reservations_page)
+
+    app.add_url_rule("/settings", view_func=views.settings_page)
 
     app.add_url_rule("/panel", view_func=views.panel_home_page)
     app.add_url_rule("/panel/<menu>", view_func=views.panel_menu_page)
@@ -58,6 +61,7 @@ def create_app():
 
     app.add_url_rule("/add_user", view_func=requests.add_user_request, methods = ['POST'])
     app.add_url_rule("/delete_user/<user_id>", view_func=requests.delete_user_request, methods = ['POST'])
+    app.add_url_rule("/update_user/<user_id>", view_func=requests.update_user_request, methods = ['POST'])
 
     return app
 

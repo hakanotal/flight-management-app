@@ -223,3 +223,12 @@ class Database:
         cur.execute("DELETE FROM accounts WHERE mail = %s", (id,))
         cur.close()
         self.conn.commit()
+
+    def update_user(self, id, name, password):
+        cur = self.conn.cursor()
+        if name:
+            cur.execute("UPDATE accounts SET name = %s WHERE mail = %s", (name, id))
+        if password:
+            cur.execute("UPDATE accounts SET password = %s WHERE mail = %s", (password, id))
+        cur.close()
+        self.conn.commit()

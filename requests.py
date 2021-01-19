@@ -174,3 +174,12 @@ def delete_user_request(user_id):
     db.delete_user(user_id)
     return redirect(request.referrer)
 
+@login_required
+def update_user_request(user_id):
+    name = request.form.get('name')
+    password = request.form.get('password')
+
+    db = current_app.config["db"]
+    db.update_user(user_id, name, password)
+    return redirect(request.referrer)
+

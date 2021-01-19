@@ -1,0 +1,77 @@
+{% extends "layout.html" %}
+{% block title %}Account Settings{% endblock %}
+{% block content %}
+    <section class="hero">
+      <div class="hero-body">
+          <div class="container">
+            <h1 class="title has-text-link">Account Settings</h1>
+          </div>
+      </div>
+    </section>
+
+    <table class="table is-striped">
+      <tr>
+        <th>Mail:</th>
+        <td>{{ user.mail }}</td>
+      </tr>
+      <tr>
+        <th>Name:</th>
+        <td>{{ user.name }}</td>
+      </tr>
+      <tr>
+        <th>Password:</th>
+        <td>{{ user.password }}</td>
+      </tr>
+    </table>
+
+    <hr>
+
+    <form class="has-background-white" action="/update_user/{{ user.mail }}" method="POST">
+      <br>
+      <div class="columns is-centered">
+        <div class="column is-2">
+          <label class="checkbox">
+            <input class="checkbox" type="checkbox" id="nameBox" />
+            <span>Change Name</span>
+          </label>
+        </div>
+        <div class="column is-2">
+          <input class="input" placeholder="Name" type="text" name="name" id="nameText" maxlength="30" disabled />
+        </div>
+
+        <script>
+          document.getElementById('nameBox').onchange = function() {
+            document.getElementById('nameText').disabled = !this.checked;
+          };
+        </script> 
+      </div>
+
+      <div class="columns is-centered">
+        <div class="column is-2">
+          <label class="checkbox">
+            <input class="checkbox has-background-dark" type="checkbox" id="pwBox" />
+            <span>Change Password</span>
+          </label>
+        </div>
+        <div class="column is-2">
+          <input class="input" placeholder="****" type="password" name="password" id="pwText" maxlength="30" disabled />
+        </div>
+
+        <script>
+          document.getElementById('pwBox').onchange = function() {
+            document.getElementById('pwText').disabled = !this.checked;
+          };
+        </script> 
+      </div>
+      <hr>
+
+      <div class="columns is-centered control is-2">
+        <button class="button is-success">
+          <span class="icon"><i class="fas fa-arrow-circle-right"></i></span>
+          <span>Update</span>
+        </button>
+      </div> 
+      <br> 
+    </form>
+       
+{% endblock %}

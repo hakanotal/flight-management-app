@@ -24,9 +24,11 @@ def details_page(flight_id):
 @login_required
 def reservations_page():
     db = current_app.config["db"]
-    reservations = db.get_reservations_of_user(current_user.id)
-    return render_template("pages/reservations.html", reservations=reservations)
+    return render_template("pages/reservations.html", reservations=db.get_reservations_of_user(current_user.id))
 
+@login_required
+def settings_page():
+    return render_template("pages/settings.html", user=current_user)
 
 #Admin Pages
 @login_required
