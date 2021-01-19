@@ -34,7 +34,8 @@
                             <th>From</th>
                             <th>To</th>
                             <th>Pilot</th>
-                            <th>Plane</th>
+                            <th>Plane Type</th>
+                            <th>Plane Brand</th>
                             <th>Capacity</th>
                             <th>Passengers</th>
                             <th>Delete</th>
@@ -48,9 +49,10 @@
                             <td class="is-vcentered">{{ flight.date }}</td>
                             <td class="is-vcentered">{{ flight.from_airport }}</td>
                             <td class="is-vcentered">{{ flight.to_airport }}</td>
-                            <td class="is-vcentered">{{ flight.pilot }}</td>
-                            <td class="is-vcentered">{{ flight.plane_type }}</td>
-                            <td class="is-vcentered">{{ flight.capacity }}</td>
+                            <td class="is-vcentered">{{ flight.pi_name }}</td>
+                            <td class="is-vcentered">{{ flight.pl_name }}</td>
+                            <td class="is-vcentered">{{ flight.pl_brand }}</td>
+                            <td class="is-vcentered">{{ flight.pl_cap }}</td>
                             <td class="is-vcentered">{{ flight.passengers }}</td>
                             <td class="is-vcentered is-narrow">
                                 <form action="/delete_flight/{{ flight.id }}" method="POST">

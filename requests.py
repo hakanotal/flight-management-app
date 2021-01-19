@@ -1,7 +1,6 @@
 from flask import render_template, url_for, current_app, redirect, request, session
 from flask_login import login_user, logout_user, current_user, login_required
 from passlib.hash import pbkdf2_sha256 as hasher
-from random import randint
 
 
 # LOGIN
@@ -24,7 +23,6 @@ def login_request():
             login_user(user)
             current_app.logger.info('User logging: %s - %s ', email, password)
             return redirect(url_for("flights_page"))
-
     #Invalid
     else:
         current_app.logger.info('Invalid attempt: %s - %s ', email, password)

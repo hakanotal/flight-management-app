@@ -29,7 +29,9 @@
                         <tr>
                             <th>ID</th>
                             <th>User Mail</th>
-                            <th>Flight ID</th>
+                            <th>Flight Date</th>
+                            <th>Flight From</th>
+                            <th>Flight To</th>
                             <th>Count</th>
                             <th>Delete</th>
                         </tr>
@@ -40,7 +42,9 @@
                         <tr>
                             <td class="is-vcentered is-narrow">{{ reservation.id }}</td>
                             <td class="is-vcentered">{{ reservation.user }}</td>
-                            <td class="is-vcentered">{{ reservation.flight }}</td>
+                            <td class="is-vcentered">{{ reservation.f_date }}</td>
+                            <td class="is-vcentered">{{ reservation.f_from }}</td>
+                            <td class="is-vcentered">{{ reservation.f_to }}</td>
                             <td class="is-vcentered">{{ reservation.count }}</td>
                             <td class="is-vcentered is-narrow">
                                 <form action="/delete_reservation/{{ reservation.id }}" method="POST">

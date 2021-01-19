@@ -14,15 +14,16 @@ class User(UserMixin):
         
 
 class Flight:
-    def __init__(self, id, date, pilot, from_airport, to_airport, plane_type, capacity, passengers=0):
+    def __init__(self, id, date, from_airport, to_airport, passengers, pi_name, pl_name, pl_brand, pl_cap):
         self.id = id
         self.date = date
         self.from_airport = from_airport
         self.to_airport = to_airport
-        self.pilot = pilot
-        self.plane_type = plane_type
-        self.capacity = capacity
         self.passengers = passengers
+        self.pi_name = pi_name
+        self.pl_name = pl_name
+        self.pl_brand = pl_brand
+        self.pl_cap = pl_cap
 
 
 class Pilot:
@@ -48,8 +49,11 @@ class Plane:
 
 
 class Reservation:
-    def __init__(self, id, count, user, flight):
+    def __init__(self, f_id, f_date, f_from, f_to, id, count, user):
         self.id = id
         self.user = user
-        self.flight = flight
         self.count = count
+        self.f_id = f_id
+        self.f_date = f_date
+        self.f_from = f_from
+        self.f_to = f_to

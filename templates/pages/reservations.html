@@ -26,11 +26,11 @@
                 {% for reservation in reservations %}
                 <tr>
                     <td class="is-vcentered">{{ reservation.count }}</td>
-                    <td class="is-vcentered">{{ reservation.flight.date }}</td>
-                    <td class="is-vcentered">{{ reservation.flight.from_airport }}</td>
-                    <td class="is-vcentered">{{ reservation.flight.to_airport }}</td>
+                    <td class="is-vcentered">{{ reservation.f_date }}</td>
+                    <td class="is-vcentered">{{ reservation.f_from }}</td>
+                    <td class="is-vcentered">{{ reservation.f_to }}</td>
                     <td class="is-vcentered">
-                        <a class="button is-link" href="/flights/{{ reservation.flight.id }}" type="submit">
+                        <a class="button is-link" href="/flights/{{ reservation.f_id }}" type="submit">
                             <span class="icon"><i class="fas fa-arrow-circle-right"></i></span>
                         </a>     
                     </td>

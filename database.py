@@ -19,23 +19,19 @@ class Database:
     def get_flights(self):
         flights = []
         cur = self.conn.cursor()
-        cur.execute("SELECT * FROM flights")
+        cur.execute("SELECT f.flight_id, f.date, f.fk_fromairport_id, f.fk_toairport_id, f.passenger_count, pi.name, pl.name, pl.brand, pl.capacity FROM flights f INNER JOIN pilots pi ON (pi.pilot_id = f.fk_pilot_id) INNER JOIN planes pl ON (pl.plane_id = f.fk_plane_id);")
         rows = cur.fetchall()
         cur.close()
         for r in rows:
-            pilot = self.get_pilot(r[2])
-            plane = self.get_plane(r[5])
-            flights.append(Flight(r[0], r[1], pilot[1], r[3], r[4], plane[1], plane[3], r[6]))
+            flights.append(Flight(r[0],r[1],r[2],r[3],r[4],r[5],r[6],r[7],r[8]))
         return flights
 
     def get_flight(self, id):
         cur = self.conn.cursor()
-        cur.execute("SELECT * FROM flights WHERE flight_id = %s", (id,))
+        cur.execute("SELECT f.flight_id, f.date, f.fk_fromairport_id, f.fk_toairport_id, f.passenger_count, pi.name, pl.name, pl.brand, pl.capacity FROM flights f INNER JOIN pilots pi ON (pi.pilot_id = f.fk_pilot_id) INNER JOIN planes pl ON (pl.plane_id = f.fk_plane_id) WHERE flight_id = %s", (id,))
         r = cur.fetchone()
         cur.close()
-        pilot = self.get_pilot(r[2])
-        plane = self.get_plane(r[5])
-        flight = Flight(r[0], r[1], pilot[1], r[3], r[4], plane[1], plane[3], r[6])
+        flight = Flight(r[0],r[1],r[2],r[3],r[4],r[5],r[6],r[7],r[8])
         return flight
     
     def new_flight(self, date, pilot, from_airport, to_airport, plane_type):
@@ -54,15 +50,13 @@ class Database:
         flights = []
         cur = self.conn.cursor()
         if not date:
-            cur.execute("SELECT * FROM flights WHERE fk_fromairport_id = %s AND fk_toairport_id = %s", (from_, to))
+            cur.execute("SELECT f.flight_id, f.date, f.fk_fromairport_id, f.fk_toairport_id, f.passenger_count, pi.name, pl.name, pl.brand, pl.capacity FROM flights f INNER JOIN pilots pi ON (pi.pilot_id = f.fk_pilot_id) INNER JOIN planes pl ON (pl.plane_id = f.fk_plane_id) WHERE f.fk_fromairport_id = %s AND f.fk_toairport_id = %s", (from_, to))
         else:
-            cur.execute("SELECT * FROM flights WHERE date = %s AND fk_fromairport_id = %s AND fk_toairport_id = %s", (date, from_, to))
+            cur.execute("SELECT f.flight_id, f.date, f.fk_fromairport_id, f.fk_toairport_id, f.passenger_count, pi.name, pl.name, pl.brand, pl.capacity FROM flights f INNER JOIN pilots pi ON (pi.pilot_id = f.fk_pilot_id) INNER JOIN planes pl ON (pl.plane_id = f.fk_plane_id) WHERE f.date = %s AND f.fk_fromairport_id = %s AND f.fk_toairport_id = %s", (date, from_, to))
         rows = cur.fetchall()
         cur.close()
         for r in rows:
-            pilot = self.get_pilot(r[2])
-            plane = self.get_plane(r[5])
-            flights.append(Flight(r[0], r[1], pilot[1], r[3], r[4], plane[1], plane[3], r[6]))
+            flights.append(Flight(r[0],r[1],r[2],r[3],r[4],r[5],r[6],r[7],r[8]))
         return flights
 
 
@@ -156,21 +150,22 @@ class Database:
     def get_reservations(self):
         reservations = []
         cur = self.conn.cursor()
-        cur.execute("SELECT * FROM reservations")
+        cur.execute("SELECT f.flight_id, f.date, f.fk_fromairport_id, f.fk_toairport_id, r.reservation_id, r.count, r.fk_user_id FROM flights f JOIN reservations r ON (f.flight_id = r.fk_flight_id);")
         rows = cur.fetchall()
         cur.close()
         for r in rows:
-            reservations.append(Reservation(r[0], r[1], r[2], r[3]))
+            reservations.append(Reservation(r[0], r[1], r[2], r[3], r[4], r[5], r[6]))
         return reservations
     
     def get_reservations_of_user(self, id):
         reservations = []
         cur = self.conn.cursor()
-        cur.execute("SELECT * FROM reservations WHERE fk_user_id = %s", (id,))
+        cur.execute("SELECT f.flight_id, f.date, f.fk_fromairport_id, f.fk_toairport_id, r.reservation_id, r.count, r.fk_user_id FROM flights f JOIN reservations r ON (f.flight_id = r.fk_flight_id) WHERE r.fk_user_id = %s", (id,))
+
         rows = cur.fetchall()
         cur.close()
         for r in rows:
-            reservations.append(Reservation(r[0], r[1], r[3], self.get_flight(r[3])))
+            reservations.append(Reservation(r[0], r[1], r[2], r[3], r[4], r[5], r[6]))
         return reservations
     
     def new_reservation(self, count, user, flight):

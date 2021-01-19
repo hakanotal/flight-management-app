@@ -76,13 +76,13 @@
                     <td class="is-vcentered">{{ flight.from_airport }}</td>
                     <td class="is-vcentered">{{ flight.to_airport }}</td>
     
-                    {% if flight.passengers < flight.capacity %}
+                    {% if flight.passengers < flight.pl_cap %}
                     <td class="is-vcentered">
-                        <progress class="progress is-primary" value="{{ flight.passengers }}" max="{{ flight.capacity }}"></progress>
+                        <progress class="progress is-primary" value="{{ flight.passengers }}" max="{{ flight.pl_cap }}"></progress>
                     </td>
                     {% else %}
                     <td class="is-vcentered">
-                        <progress class="progress is-danger" value="{{ flight.passengers }}" max="{{ flight.capacity }}">Full</progress>
+                        <progress class="progress is-danger" value="{{ flight.passengers }}" max="{{ flight.pl_cap }}">Full</progress>
                     </td>
                     {% endif %}
     
