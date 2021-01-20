@@ -206,7 +206,10 @@ class Database:
         cur.execute("SELECT * FROM accounts WHERE mail = %s AND password = %s", (mail, password))
         r = cur.fetchone()
         cur.close()
-        return User(r[0], r[1], r[2], r[3])
+        if r:
+            return User(r[0], r[1], r[2], r[3])
+        else:
+            return None
         
     def get_users(self):
         users = []
